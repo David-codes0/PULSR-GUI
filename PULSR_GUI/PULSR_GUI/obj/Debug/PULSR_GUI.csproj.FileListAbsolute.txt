@@ -1,0 +1,15 @@
+C:\Users\David Adebayo\source\repos\PULSR-GUI\PULSR_GUI\PULSR_GUI\bin\Debug\PULSR_GUI.exe.config
+C:\Users\David Adebayo\source\repos\PULSR-GUI\PULSR_GUI\PULSR_GUI\bin\Debug\PULSR_GUI.exe
+C:\Users\David Adebayo\source\repos\PULSR-GUI\PULSR_GUI\PULSR_GUI\bin\Debug\PULSR_GUI.pdb
+C:\Users\David Adebayo\source\repos\PULSR-GUI\PULSR_GUI\PULSR_GUI\obj\Debug\PULSR_GUI.csproj.AssemblyReference.cache
+C:\Users\David Adebayo\source\repos\PULSR-GUI\PULSR_GUI\PULSR_GUI\obj\Debug\MainWindow.g.cs
+C:\Users\David Adebayo\source\repos\PULSR-GUI\PULSR_GUI\PULSR_GUI\obj\Debug\App.g.cs
+C:\Users\David Adebayo\source\repos\PULSR-GUI\PULSR_GUI\PULSR_GUI\obj\Debug\PULSR_GUI_MarkupCompile.cache
+C:\Users\David Adebayo\source\repos\PULSR-GUI\PULSR_GUI\PULSR_GUI\obj\Debug\PULSR_GUI_MarkupCompile.lref
+C:\Users\David Adebayo\source\repos\PULSR-GUI\PULSR_GUI\PULSR_GUI\obj\Debug\MainWindow.baml
+C:\Users\David Adebayo\source\repos\PULSR-GUI\PULSR_GUI\PULSR_GUI\obj\Debug\PULSR_GUI.g.resources
+C:\Users\David Adebayo\source\repos\PULSR-GUI\PULSR_GUI\PULSR_GUI\obj\Debug\PULSR_GUI.Properties.Resources.resources
+C:\Users\David Adebayo\source\repos\PULSR-GUI\PULSR_GUI\PULSR_GUI\obj\Debug\PULSR_GUI.csproj.GenerateResource.cache
+C:\Users\David Adebayo\source\repos\PULSR-GUI\PULSR_GUI\PULSR_GUI\obj\Debug\PULSR_GUI.csproj.CoreCompileInputs.cache
+C:\Users\David Adebayo\source\repos\PULSR-GUI\PULSR_GUI\PULSR_GUI\obj\Debug\PULSR_GUI.exe
+C:\Users\David Adebayo\source\repos\PULSR-GUI\PULSR_GUI\PULSR_GUI\obj\Debug\PULSR_GUI.pdb
