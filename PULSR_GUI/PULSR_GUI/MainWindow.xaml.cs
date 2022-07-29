@@ -38,15 +38,8 @@ namespace PULSR_GUI
             dispatcherTimer.Tick += Timer_Tick; // linking the timer event
             dispatcherTimer.Interval = TimeSpan.FromMilliseconds(20); // running the timer every 20 milliseconds
             dispatcherTimer.Start(); // starting the timer
-            var rotateAnimation = new DoubleAnimation(720, 0, TimeSpan.FromSeconds(10));
-
-           
-            rotatsform.BeginAnimation(RotateTransform.AngleProperty, rotateAnimation);
-
-            result.Content = Canvas.GetLeft(t_mode_circular_path_Copy);
-
-            
-           
+            //var rotateAnimation = new DoubleAnimation(7200, 0, TimeSpan.FromSeconds(80));
+            //rotatsform.BeginAnimation(RotateTransform.AngleProperty, rotateAnimation);
         }
         private void Canvas_KeyDown(object sender, KeyEventArgs e)
         {
@@ -88,31 +81,60 @@ namespace PULSR_GUI
             }
         }
 
+        private int[] movingPointCoord(int val, int hlen)
+        {
+            int[] coord = new int[2];
+            val *= 6;   //each minute and second make 6 degree
+            
+            if (val >= 0 && val <= 360)
+            {
+                coord[0] = 0 + (int)(hlen * Math.Sin(Math.PI * val / 180));
+                coord[1] = 0 - (int)(hlen * Math.Cos(Math.PI * val / 180));
+            }
+          
+            return coord;
+        }
+
         private void Timer_Tick(object sender, EventArgs e)
         {
-            if (goUp && Canvas.GetTop(rec1) > 0)
-            {
-                Canvas.SetTop(rec1, Canvas.GetTop(rec1) - speed);
-                // if go up is true and player is within the boundary from the top 
-                // then we can use the set top to move the rec1 towards top of the screen
+         
+
+            controlled_Circle.Content = "Controlled Circle Point :" + "(" + translate1.X + "," + translate1.Y + ")"; // indicator for the controlled circle
+
+
+
+
+            int movingPointTimer = DateTime.Now.Second;
+            int[] movingCircleCoord = new int[2]; // moving circle co-ordinate
+            movingCircleCoord = movingPointCoord(movingPointTimer, 220); // 
+
+            
+            translase.X = movingCircleCoord[0];  // for moving circle X co-ordinate
+            translase.Y = movingCircleCoord[1]; //  for moving circle Y co-ordinate
+
+            moving_circle.Content = "Moving Circle Point: " + "(" + translase.X + "," + translase.Y + ")"; // indicator for the moving circle on screen
+
+            if (goUp  && translate1.Y > -270)
+            {      
+                translate1.Y -= speed;
+                // if go up is true and controlled circle co-ordinate is greater then -270
             }
-            if (goDown && Canvas.GetTop(rec1) + (rec1.Height * 2) < Application.Current.MainWindow.Height)
+            if (goDown && translate1.Y < 270)
             {
-                Canvas.SetTop(rec1, Canvas.GetTop(rec1) + speed);
-                // if go down is true and player is within the boundary from the bottom of the screen
-                // then we can set top of rec1 to move down
+                // if go down is true and and controlled circle co-ordinate is less then 270
+                translate1.Y += speed; 
             }
-            if (goLeft && Canvas.GetLeft(rec1) > 0)
+            if (goLeft && translate1.X > -340)
             {
-                Canvas.SetLeft(rec1, Canvas.GetLeft(rec1) - speed);
-                // if go left is true and player is inside the boundary from the left
-                // then we can set left of the player to move towards left of the screen
+                // if go left is true and controlled circle co-ordinate is greater then -340
+             
+                translate1.X -= speed;
+               
             }
-            if (goRight && Canvas.GetLeft(rec1) + (rec1.Width * 2) < Application.Current.MainWindow.Width)
+            if (goRight &&  translate1.X < 340 )
             {
-                Canvas.SetLeft(rec1, Canvas.GetLeft(rec1) + speed);
-                // if go right is true and player is inside the boundary from the right
-                // then we can set left of the player to move towards right of the screen
+                translate1.X += speed;
+                // if go right is true and controlled circle co-ordinate is less then 340
             }
         }
     }
