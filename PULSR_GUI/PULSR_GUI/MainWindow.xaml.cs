@@ -23,7 +23,7 @@ namespace PULSR_GUI
     public partial class MainWindow : Window
     {
 
-        int speed = 10; // declaring an integer called speed with value of 10
+        int speed = 10; //value of 10, defines the speed with which the controlled coordinates move, used for design test only
 
         bool goUp; // this is the go up boolean
         bool goDown; // this is the go down boolean
@@ -34,7 +34,7 @@ namespace PULSR_GUI
         {
            
             InitializeComponent();
-            DispatcherTimer dispatcherTimer = new DispatcherTimer(); // adding the timer to the form
+            DispatcherTimer dispatcherTimer = new DispatcherTimer(); // adding the timer to the form, what is the timer for?
             dispatcherTimer.Tick += Timer_Tick; // linking the timer event
             dispatcherTimer.Interval = TimeSpan.FromMilliseconds(20); // running the timer every 20 milliseconds
             dispatcherTimer.Start(); // starting the timer
@@ -43,6 +43,10 @@ namespace PULSR_GUI
         }
         private void Canvas_KeyDown(object sender, KeyEventArgs e)
         {
+            /*
+             * comment the function of input arguments and
+             * function of function itslef
+             */
             if (e.Key == Key.Down)
             {
                 goDown = true; // down key is pressed go down will be true
@@ -63,6 +67,10 @@ namespace PULSR_GUI
 
         private void Canvas_KeyUp(object sender, KeyEventArgs e)
         {
+            /*
+             * comment the function of input arguments and
+             * function of function itslef
+             */
             if (e.Key == Key.Down)
             {
                 goDown = false; // down is released go down will be false
@@ -83,7 +91,12 @@ namespace PULSR_GUI
 
         private int[] movingPointCoord(int val, int hlen)
         {
-            int[] coord = new int[2];
+            /*
+             * define what this function does by defining
+             * 1. role of input arguments
+             * 2. role of returned integer array
+             */
+            int[] coord = new int[2]; //good use of dynamic memory, thumbs up
             val *= 6;   //each minute and second make 6 degree
             
             if (val >= 0 && val <= 360)
@@ -97,43 +110,47 @@ namespace PULSR_GUI
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-         
+            /*
+             * comment the function of input arguments and
+             * function of function itslef
+             */
 
-            controlled_Circle.Content = "Controlled Circle Point :" + "(" + translate1.X + "," + translate1.Y + ")"; // indicator for the controlled circle
+            //controlled circle coordinate label indicator, to be removed later on
+            controlled_Circle.Content = "Controlled Circle Point :" + "(" + effector_coord_xy_translator.X + "," + effector_coord_xy_translator.Y + ")"; // indicator for the controlled circle
 
 
+            int movingPointTimer = DateTime.Now.Second; //what is the function of the timer, I get you are converting to degree, but be explicit in commenting for future sake
+            int[] movingCircleCoord = new int[2]; // temporary storage for moving circle co-ordinate
+            movingCircleCoord = movingPointCoord(movingPointTimer, 220); // what is the function doing here
+
+            //set new coordinates for moving circle
+            moving_coord_xy_translator.X = movingCircleCoord[0];  // for moving circle X co-ordinate
+            moving_coord_xy_translator.Y = movingCircleCoord[1]; //  for moving circle Y co-ordinate
 
 
-            int movingPointTimer = DateTime.Now.Second;
-            int[] movingCircleCoord = new int[2]; // moving circle co-ordinate
-            movingCircleCoord = movingPointCoord(movingPointTimer, 220); // 
+            //moving circle coordinate label indicator, to be removed later on
+            moving_circle.Content = "Moving Circle Point: " + "(" + moving_coord_xy_translator.X + "," + moving_coord_xy_translator.Y + ")"; // indicator for the moving circle on screen
 
-            
-            translase.X = movingCircleCoord[0];  // for moving circle X co-ordinate
-            translase.Y = movingCircleCoord[1]; //  for moving circle Y co-ordinate
-
-            moving_circle.Content = "Moving Circle Point: " + "(" + translase.X + "," + translase.Y + ")"; // indicator for the moving circle on screen
-
-            if (goUp  && translate1.Y > -270)
+            if (goUp  && effector_coord_xy_translator.Y > -270)
             {      
-                translate1.Y -= speed;
+                effector_coord_xy_translator.Y -= speed;
                 // if go up is true and controlled circle co-ordinate is greater then -270
             }
-            if (goDown && translate1.Y < 270)
+            if (goDown && effector_coord_xy_translator.Y < 270)
             {
                 // if go down is true and and controlled circle co-ordinate is less then 270
-                translate1.Y += speed; 
+                effector_coord_xy_translator.Y += speed; 
             }
-            if (goLeft && translate1.X > -340)
+            if (goLeft && effector_coord_xy_translator.X > -340)
             {
                 // if go left is true and controlled circle co-ordinate is greater then -340
              
-                translate1.X -= speed;
+                effector_coord_xy_translator.X -= speed;
                
             }
-            if (goRight &&  translate1.X < 340 )
+            if (goRight &&  effector_coord_xy_translator.X < 340 )
             {
-                translate1.X += speed;
+                effector_coord_xy_translator.X += speed;
                 // if go right is true and controlled circle co-ordinate is less then 340
             }
         }
