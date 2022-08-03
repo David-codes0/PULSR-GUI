@@ -22,6 +22,12 @@ namespace PULSR_GUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        double screen_width = System.Windows.SystemParameters.PrimaryScreenWidth;
+        double screen_height = System.Windows.SystemParameters.PrimaryScreenHeight;
+        double gui_width = 0;
+        double gui_height = 0;
+        int effector_x = 0; //to be gotten from forward kinematics
+        int effector_y = 0; //to be gotten from forward kinematics
 
         int speed = 10; //value of 10, defines the speed with which the controlled coordinates move, used for design test only
 
@@ -31,8 +37,7 @@ namespace PULSR_GUI
         bool goRight; // this is the go right boolean
 
         public MainWindow()
-        {
-           
+        {  
             InitializeComponent();
             DispatcherTimer dispatcherTimer = new DispatcherTimer(); // adding the timer to the form, what is the timer for?
             dispatcherTimer.Tick += Timer_Tick; // linking the timer event
@@ -91,6 +96,7 @@ namespace PULSR_GUI
 
         private int[] movingPointCoord(int val, int hlen)
         {
+            //make hlen argument type double as the vawriable it is to take is double and typecasting to int can cause data loss
             /*
              * define what this function does by defining
              * 1. role of input arguments
@@ -115,13 +121,20 @@ namespace PULSR_GUI
              * function of function itslef
              */
 
+            gui_width = main_window_grid.ActualWidth;
+            gui_height = main_window_grid.ActualHeight;
+
+            double path_diameter = gui_height*0.7;
+            t_mode_circular_path.Width = path_diameter;
+            t_mode_circular_path.Height = path_diameter;
+
             //controlled circle coordinate label indicator, to be removed later on
             controlled_Circle.Content = "Controlled Circle Point :" + "(" + effector_coord_xy_translator.X + "," + effector_coord_xy_translator.Y + ")"; // indicator for the controlled circle
 
 
             int movingPointTimer = DateTime.Now.Second; //what is the function of the timer, I get you are converting to degree, but be explicit in commenting for future sake
             int[] movingCircleCoord = new int[2]; // temporary storage for moving circle co-ordinate
-            movingCircleCoord = movingPointCoord(movingPointTimer, 220); // what is the function doing here
+            movingCircleCoord = movingPointCoord(movingPointTimer, (int)path_diameter/2); // what is the function doing here
 
             //set new coordinates for moving circle
             moving_coord_xy_translator.X = movingCircleCoord[0];  // for moving circle X co-ordinate
