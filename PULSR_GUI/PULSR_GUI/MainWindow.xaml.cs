@@ -153,7 +153,7 @@ namespace PULSR_GUI
             t_mode_circular_path.Height = path_diameter; // dynamic height for t_mode
 
             //controlled circle coordinate label indicator, to be removed later on
-            controlled_Circle.Content = "Controlled Circle Point :" + "(" + angle + "," + effector_coord_xy_translator.Y + ")"; // indicator for the controlled circle
+            controlled_Circle.Content = "Controlled Circle Point :" + "(" + effector_coord_xy_translator.X + "," + effector_coord_xy_translator.Y + ")"; // indicator for the controlled circle
 
 
             double movingPointTimer = DateTime.Now.Millisecond *12; //what is the function of the timer, I get you are converting to degree, but be explicit in commenting for future sake
