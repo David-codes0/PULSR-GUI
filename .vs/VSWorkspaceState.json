@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\GUI work"
+    "\\PULSR_GUI",
+    "\\PULSR_GUI\\PULSR_GUI"
   ],
-  "SelectedNode": "\\GUI work\\MainWindow.xaml",
+  "SelectedNode": "\\PULSR_GUI\\PULSR_GUI\\MainWindow.xaml.cs",
   "PreviewInSolutionExplorer": false
 }
