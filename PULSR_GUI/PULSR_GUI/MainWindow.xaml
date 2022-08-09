@@ -26,13 +26,7 @@
                 </TransformGroup>
             </Ellipse.RenderTransform>
         </Ellipse>
-        <Ellipse x:Name="new_ellipse"  Height="25" Width="25" StrokeThickness="5" Stroke="White" Fill="White" RenderTransformOrigin="0.5,0.5">
-            <Ellipse.RenderTransform>
-                <TransformGroup>
-                    <TranslateTransform x:Name="new_ellipse_coord_xy_translator"/>
-                </TransformGroup>
-            </Ellipse.RenderTransform>
-        </Ellipse>
+
         
         <Label Name="moving_circle" Content="" Height="38"  Width="353" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Background="#FFF3FF00" Margin="401,518,38,13"/>
 

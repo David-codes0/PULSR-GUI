@@ -41,10 +41,6 @@ namespace PULSR_GUI
 
         float angle = 0.0f; // steps angle for the new ellipse
         PointF org = new PointF(0, 0); // origin position for the new ellipse
-        float rad = 200; // radius of the new rotationing ellipse
-        PointF loc = PointF.Empty; // location of the new rotating circle
-
-       
         public MainWindow()
         {  
             InitializeComponent();
@@ -103,39 +99,17 @@ namespace PULSR_GUI
             }
         }
 
-        private int[] movingPointCoord(double val, int hlen)
+
+        public float[] movingPointCoord(float radius, float angleInDegrees, PointF origin) // This is the new ellipse point function 
         {
-            //make hlen argument type double as the vawriable it is to take is double and typecasting to int can cause data loss
-            /*
-             * define what this function does by defining
-             * 1. role of input arguments
-             * 2. role of returned integer array
-             */
-            int[] coord = new int[2]; //good use of dynamic memory, thumbs up
-            val *= 0.008;   //each minute and second make 6 degree
-            double date = DateTime.Now.Millisecond * 3.6;
 
-            if (val >= 0 && val <= 360)
-            {
-                coord[0] = 0 + (int)(hlen * Math.Sin(Math.PI * val / 180));
-                coord[1] = 0 - (int)(hlen * Math.Cos(Math.PI * val / 180));
-            }
-            else if (val >= 360)
-            {
-                val = val - 360;
-                coord[0] = (int)(hlen * Math.Sin(Math.PI * val / 180));
-                coord[1] = (int)(hlen * -Math.Cos(Math.PI * val / 180));
+            //  angleInDegrees:  step angle for the moving circle
+            //  radius: the radius at with the moving circle moves around the circumference
+            float[] coord = new float[2]; // array for the x and y co-ordinates
+            coord[0] = (float)(radius * Math.Cos(angleInDegrees * Math.PI / 180)) + origin.X;  // the x co-ordinate
+            coord[1] = (float)(radius * Math.Sin(angleInDegrees * Math.PI / 180)) + origin.Y; // the y co-ordinate 
 
-            }
-            main_window.Title = " " + val + " " + date;
-            return coord;
-        }
-        public PointF newEllipsePoint(float radius, float angleInDegrees, PointF origin) // This is the new ellipse point function 
-        {
-            float x = (float)(radius * Math.Cos(angleInDegrees * Math.PI / 180F)) + origin.X;
-            float y = (float)(radius * Math.Sin(angleInDegrees * Math.PI / 180F)) + origin.Y;
-
-            return new PointF(x, y);
+            return coord; // it returens the array of the two co-ordinates
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -155,13 +129,26 @@ namespace PULSR_GUI
             //controlled circle coordinate label indicator, to be removed later on
             controlled_Circle.Content = "Controlled Circle Point :" + "(" + effector_coord_xy_translator.X + "," + effector_coord_xy_translator.Y + ")"; // indicator for the controlled circle
 
+           
 
-            double movingPointTimer = DateTime.Now.Millisecond *12; //what is the function of the timer, I get you are converting to degree, but be explicit in commenting for future sake
-            int[] movingCircleCoord = new int[2]; // temporary storage for moving circle co-ordinate
-            movingCircleCoord = movingPointCoord(movingPointTimer, (int)path_diameter/2); // the function return the x and y co-ordinate for the moving circle 
+            float[] movingCircleCoord = new float[2]; // temporary storage for moving circle co-ordinate
+            movingCircleCoord = movingPointCoord((int)path_diameter/2, angle, org); // the function return the x and y co-ordinate for the moving circle 
+            if (angle <= 360 || angle >= 0)  //condition that controls the moving circle
+            {
+                angle += 0.5f;
+                if (angle % 2 == 0)
+                {
+                    moving_coord_ellipse.Fill = System.Windows.Media.Brushes.Black;
+                    moving_coord_ellipse.Stroke = System.Windows.Media.Brushes.Black;
+                }
+                else
+                {
+                    moving_coord_ellipse.Fill = System.Windows.Media.Brushes.White;
+                    moving_coord_ellipse.Stroke = System.Windows.Media.Brushes.White;
+                }
+            }
 
 
-         
             //set new coordinates for moving circle
             moving_coord_xy_translator.X = movingCircleCoord[0];  // for moving circle X co-ordinate
             moving_coord_xy_translator.Y = movingCircleCoord[1]; //  for moving circle Y co-ordinate
@@ -192,28 +179,6 @@ namespace PULSR_GUI
                 effector_coord_xy_translator.X += speed;
                 // if go right is true and controlled circle co-ordinate is less then 340
             }
-
-         /// NEW ELLIPSE LOGICS
-
-                loc = newEllipsePoint(rad, angle, org); // stores the points or location gotten from  the newEllipsePoint function  
-                new_ellipse_coord_xy_translator.X = (int)(loc.X - (new_ellipse.Width ) + (int)path_diameter/10 );// for moving the new ellipse X co - ordinate
-                new_ellipse_coord_xy_translator.Y = (int)(loc.Y - (new_ellipse.Height ) + (int)path_diameter/10 ); // for moving the new ellipse Y co- ordinate
-
-
-
-                if (angle < 360)//  condition that controls the new ellipses
-                {
-                    angle += 1.5f;
-                }
-                else if(angle == 0)
-                {
-                    angle = 0;
-                }
-
-            
-
-
-
 
         }
 
